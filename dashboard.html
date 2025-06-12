@@ -4,16 +4,39 @@
   <meta charset="UTF-8" />
   <title>LSM99.COM</title>
   <style>
-    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
-    button { padding: 10px; margin: 10px; }
+  body {
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 10px; /* ลด margin ด้านบนลงหน่อย */
+  }
+
+  img {
+    width: 1300px; /* ปรับให้ไม่ใหญ่มากเกินไป */
+    margin-top: -100px; /* ขยับโลโก้ขึ้นด้านบน */
+    margin-bottom: -150px; /* ไม่ให้ห่างจากข้อความมากเกิน */
+  }
+
+  p {
+    font-size: 40px; /* ให้ข้อความต้อนรับใหญ่ขึ้น */
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 50px;
+  }
+
+  button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 30px;
+    cursor: pointer;
+  }
+
   </style>
 </head>
 <body>
 </header>
-  <img src="logo.png" alt="LSM99.COM" width="300">
+  <img src="logo.png" alt="LSM99.COM" width="1000">
   <p>ยินดีต้อนรับ, <span id="userId"></span></p>
   
-  <h3>เมนูการใช้งาน</h3>
   <button onclick="goToPrediction()">ไปทายผลกิจกรรม</button>
   <button onclick="logout()">ออกจากระบบ</button>
 

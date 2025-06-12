@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login Page</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    input { padding: 10px; margin: 10px; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <h2>เข้าสู่ระบบ</h2>
+  <input type="text" id="userIdInput" placeholder="กรอก User ID">
+  <button onclick="login()">เข้าสู่ระบบ</button>
+  <p id="error" style="color: red;"></p>
+
+  <div id="mainContent" class="hidden">
+    <h3>ยินดีต้อนรับ!</h3>
+    <p>คุณเข้าสู่ระบบแล้ว</p>
+  </div>
+
+  <script>
+    // ✅ สร้าง User ID ตั้งแต่ Mpz50001 ถึง Mpz54999
+    const validUserIds = [];
+    for (let i = 1; i <= 4999; i++) {
+      const num = i.toString().padStart(4, '0');
+      validUserIds.push(`Mpz5${num}`);
+    }
+
+function login() {
+  const inputId = document.getElementById("userIdInput").value.trim();
+  const error = document.getElementById("error");
+
+  if (!inputId) {
+    error.textContent = "กรุณากรอก User ID"; // ป้องกันไม่ให้กรอกช่องว่าง
+    return;
+  }
+
+  const isValid = validUserIds.includes(inputId); // ตรวจสอบว่า User ID อยู่ในลิสต์หรือไม่
+
+  if (isValid) {
+    sessionStorage.setItem("loggedInUser", inputId);
+    window.location.href = "dashboard.html"; // ไปหน้าแดชบอร์ด
+  } else {
+    error.textContent = "User ID ไม่ถูกต้อง";
+  }
+}
+  </script>
+</body>
+</html>

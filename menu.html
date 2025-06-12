@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>เลือกกิจกรรม</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 30px; }
+    button { padding: 15px 30px; margin: 15px; font-size: 18px; }
+  </style>
+</head>
+<body>
+
+<h2>🎯 กรุณาเลือกกิจกรรมที่ต้องการ</h2>
+
+  <button onclick="go('predict-football.html')">A. กิจกรรมทายผลฟุตบอล</button><br>
+  <button onclick="go('predict-boxing.html')">B. กิจกรรมทายผลมวย</button><br>
+  <button onclick="go('predict-lotto.html')">C. กิจกรรมทายผลหวย</button>
+
+  <script>
+    function go(page) {
+      window.location.href = page;
+    }
+  </script>
+
+</body>
+</html>

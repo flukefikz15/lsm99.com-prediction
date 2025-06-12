@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>กิจกรรมทายผลฟุตบอล</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 20px; }
+    .team-block { display: inline-block; margin: 20px; }
+    .score-input { width: 60px; font-size: 18px; text-align: center; }
+    .result-box {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 15px 20px;
+  background-color: #f0f8ff;
+  border: 2px dashed #0066cc;
+  border-radius: 8px;
+  font-size: 18px;
+  color: #003366;
+  max-width: 90%;
+  word-wrap: break-word;
+}
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>⚽️ ทีม A vs ทีม B</h2>
+
+  <!-- เงื่อนไข 1 -->
+  <p><strong>1. ทีมใดจะยิงประตูก่อน?</strong></p>
+  <label><input type="radio" name="firstGoal" value="ทีม A"> ทีม A</label>
+  <label><input type="radio" name="firstGoal" value="ทีม B"> ทีม B</label>
+
+  <!-- เงื่อนไข 2 -->
+  <p><strong>2. ทายผลสกอร์</strong></p>
+  <div class="team-block">
+    <p>ทีม A</p>
+    <input type="number" min="0" id="scoreA" class="score-input" placeholder="0">
+  </div>
+  <div class="team-block">
+    <p>ทีม B</p>
+    <input type="number" min="0" id="scoreB" class="score-input" placeholder="0">
+  </div>
+
+  <!-- ปุ่มส่ง -->
+  <div>
+    <button onclick="submitPrediction()">ส่งคำตอบ</button>
+  </div>
+
+<!-- แสดงผล -->
+<p id="result" class="result-box">คุณยังไม่ได้ทายผล</p>
+
+<!-- ปุ่มย้อนกลับวางไว้ "ใต้" ข้อความ -->
+<br>
+<button onclick="goBack()">🔙 ย้อนกลับไปแดชบอร์ด</button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const already = localStorage.getItem("alreadyPredicted");
+      const resultBox = document.getElementById("result");
+
+      if (already && resultBox) {
+        const summary = localStorage.getItem("lastPrediction");
+        if (summary) {
+          resultBox.textContent = summary;
+        }
+      }
+    });
+
+    function submitPrediction() {
+      if (localStorage.getItem("alreadyPredicted")) {
+        alert("คุณได้ส่งคำทายไปแล้ว ไม่สามารถแก้ไขได้");
+        return;
+      }
+
+      const choice = document.querySelector('input[name="firstGoal"]:checked');
+      if (!choice) {
+        alert("กรุณาเลือกทีมที่จะยิงก่อน");
+        return;
+      }
+
+      const scoreA = document.getElementById("scoreA").value;
+      const scoreB = document.getElementById("scoreB").value;
+      if (scoreA === "" || scoreB === "") {
+        alert("กรุณากรอกคะแนนให้ครบทั้งสองทีม");
+        return;
+      }
+
+      const summary = `คุณทายว่า ${choice.value} จะยิงก่อน และผลคือ ทีม A ${scoreA} - ${scoreB} ทีม B`;
+      document.getElementById("result").textContent = summary;
+
+      localStorage.setItem("alreadyPredicted", "true");
+      localStorage.setItem("lastPrediction", summary);
+    }
+
+    function goBack() {
+      window.location.href = "dashboard.html";
+    }
+
+    function resetPrediction() {
+      localStorage.removeItem("alreadyPredicted");
+      localStorage.removeItem("lastPrediction");
+      location.reload();
+    }
+  </script>
+
+</body>
+</html>

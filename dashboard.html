@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>LSM99.COM</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    button { padding: 10px; margin: 10px; }
+  </style>
+</head>
+<body>
+</header>
+  <img src="logo.png" alt="LSM99.COM" width="300">
+  <p>ยินดีต้อนรับ, <span id="userId"></span></p>
+  
+  <h3>เมนูการใช้งาน</h3>
+  <button onclick="goToPrediction()">ไปทายผลกิจกรรม</button>
+  <button onclick="logout()">ออกจากระบบ</button>
+
+  <script>
+    // ตรวจสอบว่าผู้ใช้ล็อกอินแล้วหรือยัง
+document.addEventListener("DOMContentLoaded", function () {
+  const user = sessionStorage.getItem("loggedInUser");
+
+  if (!user) {
+    alert("กรุณาเข้าสู่ระบบก่อน!");
+    window.location.href = "index.html"; // 🔄 redirect กลับหน้า login
+  } else {
+    const welcome = document.getElementById("userId"); // ✅ เปลี่ยนเป็น userId
+    if (welcome) {
+      welcome.textContent = user; // แสดงชื่อผู้ใช้
+    }
+  }
+});
+
+
+    function goToPrediction() {
+  window.location.href = "menu.html"; // แทนที่เดิม
+}
+
+    function logout() {
+      sessionStorage.removeItem("loggedInUser"); // ล้างข้อมูล session
+      window.location.href = "login.html"; // กลับไปหน้า login
+    }
+  </script>
+</body>
+</html>

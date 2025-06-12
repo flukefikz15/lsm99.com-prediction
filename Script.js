@@ -44,7 +44,7 @@ function goToPrediction() {
 // ฟังก์ชันออกจากระบบ
 function logout() {
   sessionStorage.clear(); // ล้างข้อมูลทั้งหมด
-  window.location.href = "login.html";
+  window.location.href = "index.html";
   location.reload(); // รีโหลดหน้าเพื่อเคลียร์ข้อมูล Session ที่อาจค้างอยู่
 }
 

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>กิจกรรมทายผลมวย</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 20px; }
+    .fight-block { display: inline-block; margin: 20px; text-align: left; }
+    .result-box {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 15px 20px;
+      background-color: #f0f8ff;
+      border: 2px dashed #0066cc;
+      border-radius: 8px;
+      font-size: 18px;
+      color: #003366;
+      max-width: 90%;
+      word-wrap: break-word;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🥊 ทายผลมวย 3 คู่</h2>
+
+  <!-- คู่ที่ 1 -->
+  <div class="fight-block">
+    <p><strong>คู่ที่ 1: นักมวย A vs นักมวย B</strong></p>
+    <label><input type="radio" name="winner1" value="นักมวย A"> นักมวย A</label>
+    <label><input type="radio" name="winner1" value="นักมวย B"> นักมวย B</label>
+    <br>
+    <label><input type="radio" name="winType1" value="ชนะคะแนน"> ชนะคะแนน</label>
+    <label><input type="radio" name="winType1" value="ชนะน็อค"> ชนะน็อค</label>
+  </div>
+
+  <!-- คู่ที่ 2 -->
+  <div class="fight-block">
+    <p><strong>คู่ที่ 2: นักมวย C vs นักมวย D</strong></p>
+    <label><input type="radio" name="winner2" value="นักมวย C"> นักมวย C</label>
+    <label><input type="radio" name="winner2" value="นักมวย D"> นักมวย D</label>
+    <br>
+    <label><input type="radio" name="winType2" value="ชนะคะแนน"> ชนะคะแนน</label>
+    <label><input type="radio" name="winType2" value="ชนะน็อค"> ชนะน็อค</label>
+  </div>
+
+  <!-- คู่ที่ 3 -->
+  <div class="fight-block">
+    <p><strong>คู่ที่ 3: นักมวย E vs นักมวย F</strong></p>
+    <label><input type="radio" name="winner3" value="นักมวย E"> นักมวย E</label>
+    <label><input type="radio" name="winner3" value="นักมวย F"> นักมวย F</label>
+    <br>
+    <label><input type="radio" name="winType3" value="ชนะคะแนน"> ชนะคะแนน</label>
+    <label><input type="radio" name="winType3" value="ชนะน็อค"> ชนะน็อค</label>
+  </div>
+
+  <!-- ปุ่มส่งคำตอบ -->
+  <div>
+    <button onclick="submitMuayPrediction()">ส่งคำตอบ</button>
+  </div>
+
+  <!-- แสดงผล -->
+  <p id="muayResult" class="result-box">คุณยังไม่ได้ทายผล</p>
+
+  <br>
+  <button onclick="goBack()">🔙 ย้อนกลับไปแดชบอร์ด</button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const lastMuayPrediction = localStorage.getItem("muayPrediction");
+      if (lastMuayPrediction) {
+        document.getElementById("muayResult").textContent = lastMuayPrediction;
+      }
+    });
+
+    function submitMuayPrediction() {
+      let summary = "คุณทายผลมวยดังนี้:\n";
+      for (let i = 1; i <= 3; i++) {
+        let winner = document.querySelector(`input[name="winner${i}"]:checked`);
+        let winType = document.querySelector(`input[name="winType${i}"]:checked`);
+
+        if (!winner || !winType) {
+          alert("กรุณาเลือกผลการแข่งขันให้ครบทุกคู่");
+          return;
+        }
+
+        summary += `คู่ที่ ${i}: ${winner.value} ชนะโดย ${winType.value}\n`;
+      }
+
+      document.getElementById("muayResult").textContent = summary;
+      localStorage.setItem("muayPrediction", summary);
+    }
+
+    function goBack() {
+      window.location.href = "dashboard.html";
+    }
+
+    function resetMuayPrediction() {
+      localStorage.removeItem("muayPrediction");
+      location.reload();
+    }
+  </script>
+
+</body>
+</html>

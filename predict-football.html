@@ -1,111 +1,228 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <title>กิจกรรมทายผลฟุตบอล</title>
+  <meta charset="UTF-8">
+  <title>ทายผลฟุตบอล</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 20px; }
-    .team-block { display: inline-block; margin: 20px; }
-    .score-input { width: 60px; font-size: 18px; text-align: center; }
-    .result-box {
-  display: inline-block;
-  margin-top: 30px;
-  padding: 15px 20px;
-  background-color: #f0f8ff;
-  border: 2px dashed #0066cc;
-  border-radius: 8px;
-  font-size: 18px;
-  color: #003366;
-  max-width: 90%;
-  word-wrap: break-word;
-}
-    button {
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 16px;
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 40px;
+      background-color: #f4f4f4;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: transparent;
+      border: none;
+      font-size: 25px;
+      color: #007bff;
       cursor: pointer;
+      font-weight: bold;
+    }
+
+    .back-button:hover {
+      color: #0056b3;
+    }
+
+    h2 {
+      font-size: 40px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .match-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      max-width: 800px;
+      margin: 20px auto;
+    }
+
+    .team {
+      text-align: center;
+      width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .team img {
+      max-width: 120px;
+      display: block;
+      margin: 10px auto;
+    }
+
+    .team-name {
+      font-size: 34px;
+      font-weight: bold;
+      margin: 10px 0;
+      color: #007bff;
+    }
+
+    .vs-text {
+      font-size: 70px;
+      font-weight: bold;
+      color: #dc3545;
+    }
+
+    .score-box {
+      font-size: 30px;
+      width: 80px;
+      height: 40px;
+      text-align: center;
+      border: 2px solid #007bff;
+      border-radius: 10px;
+      margin: 20px auto;
+    }
+
+    .goal-selection {
+      display: flex;
+      justify-content: center;
+      gap: 115px;
+      margin-top: 25px;
+    }
+
+    .goal-selection label {
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      margin-top: 30px;
+      font-size: 30px;
+      color: #333;
+    }
+
+    .disabled {
+      opacity: 0.6;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
 
-  <h2>⚽️ ทีม A vs ทีม B</h2>
+  <button class="back-button" onclick="history.back()">🔙 ย้อนกลับ</button>
 
-  <!-- เงื่อนไข 1 -->
-  <p><strong>1. ทีมใดจะยิงประตูก่อน?</strong></p>
-  <label><input type="radio" name="firstGoal" value="ทีม A"> ทีม A</label>
-  <label><input type="radio" name="firstGoal" value="ทีม B"> ทีม B</label>
+  <h2>⚽️ ทายผลฟุตบอล</h2>
 
-  <!-- เงื่อนไข 2 -->
-  <p><strong>2. ทายผลสกอร์</strong></p>
-  <div class="team-block">
-    <p>ทีม A</p>
-    <input type="number" min="0" id="scoreA" class="score-input" placeholder="0">
-  </div>
-  <div class="team-block">
-    <p>ทีม B</p>
-    <input type="number" min="0" id="scoreB" class="score-input" placeholder="0">
-  </div>
+  <div class="match-container">
+    <div class="team">
+      <img id="teamAImage" src="" alt="ทีม A" style="display: none;">
+      <div id="teamAName" class="team-name">ทีม A</div>
+      <input type="number" min="0" id="scoreA" class="score-box" placeholder="0">
+    </div>
 
-  <!-- ปุ่มส่ง -->
-  <div>
-    <button onclick="submitPrediction()">ส่งคำตอบ</button>
+    <div class="vs-text">VS</div>
+
+    <div class="team">
+      <img id="teamBImage" src="" alt="ทีม B" style="display: none;">
+      <div id="teamBName" class="team-name">ทีม B</div>
+      <input type="number" min="0" id="scoreB" class="score-box" placeholder="0">
+    </div>
   </div>
 
-<!-- แสดงผล -->
-<p id="result" class="result-box">คุณยังไม่ได้ทายผล</p>
+  <div class="goal-selection">
+    <label><input type="radio" name="firstGoal" value="teamA"> ยิงก่อน</label>
+    <label><input type="radio" name="firstGoal" value="draw"> เสมอ</label>
+    <label><input type="radio" name="firstGoal" value="teamB"> ยิงก่อน</label>
+  </div>
 
-<!-- ปุ่มย้อนกลับวางไว้ "ใต้" ข้อความ -->
-<br>
-<button onclick="goBack()">🔙 ย้อนกลับไปแดชบอร์ด</button>
+  <button id="submitBtn" onclick="submitPrediction()">✅ ส่งคำตอบ</button>
+  <p id="result">🔍 คุณยังไม่ได้ทายผล</p>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const already = localStorage.getItem("alreadyPredicted");
-      const resultBox = document.getElementById("result");
+    let matchId = null;
 
-      if (already && resultBox) {
-        const summary = localStorage.getItem("lastPrediction");
-        if (summary) {
-          resultBox.textContent = summary;
+    window.onload = function () {
+      const data = JSON.parse(localStorage.getItem("currentFootballMatch"));
+      const lastMatchId = localStorage.getItem("lastMatchId");
+
+      if (data) {
+        matchId = data.matchId || "default";
+
+        // ⭐️ ถ้ามีการเปลี่ยน matchId → ล้างผลทายเก่า
+        if (matchId !== lastMatchId) {
+          if (lastMatchId) {
+            localStorage.removeItem("prediction_" + lastMatchId);
+          }
+          localStorage.setItem("lastMatchId", matchId);
+        }
+
+        document.getElementById("teamAName").textContent = data.teamAName;
+        document.getElementById("teamBName").textContent = data.teamBName;
+        document.getElementById("teamAImage").src = data.teamAImage;
+        document.getElementById("teamBImage").src = data.teamBImage;
+        document.getElementById("teamAImage").style.display = "block";
+        document.getElementById("teamBImage").style.display = "block";
+
+        const saved = localStorage.getItem("prediction_" + matchId);
+        if (saved) {
+          const savedText = JSON.parse(saved).resultText;
+          document.getElementById("result").textContent = savedText;
+          document.getElementById("submitBtn").classList.add("disabled");
         }
       }
-    });
+    };
 
     function submitPrediction() {
-      if (localStorage.getItem("alreadyPredicted")) {
-        alert("คุณได้ส่งคำทายไปแล้ว ไม่สามารถแก้ไขได้");
-        return;
-      }
-
-      const choice = document.querySelector('input[name="firstGoal"]:checked');
-      if (!choice) {
-        alert("กรุณาเลือกทีมที่จะยิงก่อน");
-        return;
-      }
-
       const scoreA = document.getElementById("scoreA").value;
       const scoreB = document.getElementById("scoreB").value;
+      const choice = document.querySelector('input[name="firstGoal"]:checked');
+
       if (scoreA === "" || scoreB === "") {
-        alert("กรุณากรอกคะแนนให้ครบทั้งสองทีม");
+        alert("⚠️ กรุณากรอกคะแนนให้ครบทั้งสองทีม!");
         return;
       }
 
-      const summary = `คุณทายว่า ${choice.value} จะยิงก่อน และผลคือ ทีม A ${scoreA} - ${scoreB} ทีม B`;
-      document.getElementById("result").textContent = summary;
+      if (!choice) {
+        alert("⚠️ กรุณาเลือกผลการแข่งขัน!");
+        return;
+      }
 
-      localStorage.setItem("alreadyPredicted", "true");
-      localStorage.setItem("lastPrediction", summary);
-    }
+      const teamA = document.getElementById("teamAName").textContent;
+      const teamB = document.getElementById("teamBName").textContent;
+      const selectedOption = choice.value;
 
-    function goBack() {
-      window.location.href = "dashboard.html";
-    }
+      let predictionText = "";
 
-    function resetPrediction() {
-      localStorage.removeItem("alreadyPredicted");
-      localStorage.removeItem("lastPrediction");
-      location.reload();
+      if (selectedOption === "draw") {
+        predictionText = `📢 คุณทายว่าทั้งสองทีมจะเสมอที่สกอร์ ${scoreA} - ${scoreB}`;
+      } else {
+        const teamName = selectedOption === "teamA" ? teamA : teamB;
+        predictionText = `📢 คุณทายว่า ${teamName} จะยิงก่อน และผลคือ ${scoreA} - ${scoreB}`;
+      }
+
+      document.getElementById("result").textContent = predictionText;
+
+      localStorage.setItem("prediction_" + matchId, JSON.stringify({
+        scoreA, scoreB, firstGoal: selectedOption, resultText: predictionText
+      }));
+
+      document.getElementById("submitBtn").classList.add("disabled");
     }
   </script>
 

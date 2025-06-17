@@ -1,24 +1,139 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>เลือกกิจกรรม</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 30px; }
-    button { padding: 15px 30px; margin: 15px; font-size: 18px; }
+    body {  
+      font-family: sans-serif;  
+      text-align: center;  
+      padding: 50px;
+      background: linear-gradient(to bottom, #f9f9f9, #e0f7fa); /* พื้นหลังไล่สี */
+      position: relative;
+    }
+
+    h2 {
+      font-size: 30px;
+      font-weight: bold;
+      margin-top: 80px;
+      color: #333;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .activity-button {
+      padding: 20px 40px;
+      font-size: 20px;
+      width: 260px;
+      text-align: center;
+      border: none;
+      border-radius: 10px;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .activity-button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ✅ ปุ่มย้อนกลับ */
+    .back-button {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background-color: transparent;
+      border: none;
+      font-size: 18px;
+      color: #007bff;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .back-button:hover {
+      color: #0056b3;
+      transform: scale(1.1);
+    }
+
+    /* ✅ pop-up แจ้งเตือน */
+    .modal {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      text-align: center;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .modal button {
+      margin-top: 10px;
+      padding: 7px 14px;
+      cursor: pointer;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .modal button:hover {
+      background-color: #0056b3;
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -55%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
   </style>
 </head>
 <body>
 
-<h2>🎯 กรุณาเลือกกิจกรรมที่ต้องการ</h2>
+  <!-- ✅ ปุ่มย้อนกลับ -->
+  <button class="back-button" onclick="history.back()">🔙 ย้อนกลับ</button>
 
-  <button onclick="go('predict-football.html')">A. กิจกรรมทายผลฟุตบอล</button><br>
-  <button onclick="go('predict-boxing.html')">B. กิจกรรมทายผลมวย</button><br>
-  <button onclick="go('predict-lotto.html')">C. กิจกรรมทายผลหวย</button>
+  <h2>🎯 กรุณาเลือกกิจกรรมที่ต้องการ</h2>
+
+  <div class="button-container">
+    <button class="activity-button" onclick="go('predict-football.html')">⚽ ทายผลฟุตบอล</button>
+    <button class="activity-button" onclick="go('predict-muay.html')">🥊 ทายผลมวย</button>
+    <button class="activity-button" onclick="showPopup()">🎲 ทายผลหวย</button> <!-- ✅ เปลี่ยนฟังก์ชัน -->
+  </div>
+
+  <!-- ✅ pop-up แจ้งเตือน -->
+  <div id="popup" class="modal">
+    <p>🎲 กิจกรรมทายผลหวยจะเปิดให้เล่นเร็วๆ นี้</p>
+    <button onclick="closePopup()">ตกลง</button>
+  </div>
 
   <script>
     function go(page) {
       window.location.href = page;
+    }
+
+    function showPopup() {
+      document.getElementById("popup").style.display = "block";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none"; // ✅ อยู่ที่หน้าเดิม
     }
   </script>
 

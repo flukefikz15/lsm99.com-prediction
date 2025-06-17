@@ -67,7 +67,6 @@
       transform: scale(1.05);
     }
 
-    /* ✅ ปุ่มย้อนกลับ */
     .back-button {
       position: absolute;
       top: 15px;
@@ -131,7 +130,7 @@
       const teamAImage = document.getElementById("previewA").src;
       const teamBImage = document.getElementById("previewB").src;
 
-      if (!teamAName || !teamBName || !teamAImage || !teamBImage || teamAImage.includes("data:image") === false || teamBImage.includes("data:image") === false) {
+      if (!teamAName || !teamBName || !teamAImage || !teamBImage) {
         alert("⚠️ กรุณากรอกชื่อทีมและเลือกรูปให้ครบทั้งสองทีม!");
         return;
       }

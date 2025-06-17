@@ -164,12 +164,12 @@
       if (data) {
         matchId = data.matchId || "default";
 
-        // ⭐️ ถ้ามีการเปลี่ยน matchId → ล้างผลทายเก่า
         if (matchId !== lastMatchId) {
           if (lastMatchId) {
             localStorage.removeItem("prediction_" + lastMatchId);
           }
           localStorage.setItem("lastMatchId", matchId);
+          document.getElementById("submitBtn").classList.remove("disabled"); // ✅ ปลดล็อกปุ่มเมื่อมีกิจกรรมใหม่
         }
 
         document.getElementById("teamAName").textContent = data.teamAName;

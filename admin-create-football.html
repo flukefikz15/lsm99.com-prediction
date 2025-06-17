@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>สร้างกิจกรรมฟุตบอล</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: linear-gradient(to bottom, #f9f9f9, #e0f7fa);
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    h2 {
+      font-size: 30px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 60px;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 20px;
+      margin: auto;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .team-section {
+      margin-bottom: 20px;
+    }
+
+    .team-section input[type="text"],
+    .team-section input[type="file"] {
+      display: block;
+      margin: 10px auto;
+      padding: 8px;
+      width: 80%;
+    }
+
+    .preview-img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    /* ✅ ปุ่มย้อนกลับ */
+    .back-button {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background-color: transparent;
+      border: none;
+      font-size: 18px;
+      color: #007bff;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .back-button:hover {
+      color: #0056b3;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <button class="back-button" onclick="history.back()">🔙 ย้อนกลับ</button>
+
+  <h2>⚽ สร้างกิจกรรมฟุตบอล</h2>
+
+  <div class="form-container">
+    <div class="team-section">
+      <label>ชื่อทีมฝั่งซ้าย</label>
+      <input type="text" id="teamANameInput" placeholder="ชื่อทีม A">
+      <input type="file" accept="image/*" id="teamAImageInput" onchange="previewImage(event, 'previewA')">
+      <img id="previewA" class="preview-img">
+    </div>
+
+    <div class="team-section">
+      <label>ชื่อทีมฝั่งขวา</label>
+      <input type="text" id="teamBNameInput" placeholder="ชื่อทีม B">
+      <input type="file" accept="image/*" id="teamBImageInput" onchange="previewImage(event, 'previewB')">
+      <img id="previewB" class="preview-img">
+    </div>
+
+    <button onclick="createMatch()">✅ สร้างกิจกรรม</button>
+  </div>
+
+  <script>
+    function previewImage(event, id) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const img = document.getElementById(id);
+          img.src = reader.result;
+          img.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function createMatch() {
+      const teamAName = document.getElementById("teamANameInput").value.trim();
+      const teamBName = document.getElementById("teamBNameInput").value.trim();
+      const teamAImage = document.getElementById("previewA").src;
+      const teamBImage = document.getElementById("previewB").src;
+
+      if (!teamAName || !teamBName || !teamAImage || !teamBImage || teamAImage.includes("data:image") === false || teamBImage.includes("data:image") === false) {
+        alert("⚠️ กรุณากรอกชื่อทีมและเลือกรูปให้ครบทั้งสองทีม!");
+        return;
+      }
+
+      const matchData = {
+        matchId: Date.now().toString(),
+        teamAName,
+        teamBName,
+        teamAImage,
+        teamBImage,
+      };
+      
+      localStorage.setItem("currentFootballMatch", JSON.stringify(matchData));
+      localStorage.setItem("eventUpdated", Date.now());
+
+      alert("✅ สร้างกิจกรรมสำเร็จ!");
+      window.location.href = "predict-football.html";
+    }
+  </script>
+
+</body>
+</html>

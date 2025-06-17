@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Login</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 50px; }
+    input { padding: 10px; font-size: 16px; margin: 5px; }
+    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h2>🔐 Admin Login</h2>
+  <input type="text" id="adminUser" placeholder="User">
+  <input type="password" id="adminPassword" placeholder="Password">
+  <button onclick="adminLogin()">เข้าสู่ระบบ</button>
+
+  <script>
+    function adminLogin() {
+      const user = document.getElementById("adminUser").value.trim();
+      const password = document.getElementById("adminPassword").value.trim();
+
+      if (user === "adminlsm99" && password === "99lsm145632+@") {
+        sessionStorage.setItem("loggedInUser", user);
+        alert("✅ เข้าสู่ระบบสำเร็จ!");
+        window.location.href = "admin-menu.html"; // 🔹 ส่งไปหน้าจัดกิจกรรม
+      } else {
+        alert("❌ User หรือ Password ไม่ถูกต้อง");
+      }
+    }
+  </script>
+</body>
+</html>

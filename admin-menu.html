@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>เมนูแอดมิน</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #e0f7fa, #ffffff);
+      margin: 0;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 36px;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .menu-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .menu-button {
+      padding: 20px;
+      font-size: 20px;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .menu-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    .football { background-color: #007bff; }
+    .muaythai { background-color: #28a745; }
+    .lotto { background-color: #ff5722; }
+
+    .logout {
+      margin-top: 40px;
+      background-color: #6c757d;
+    }
+
+    .logout:hover {
+      background-color: #5a6268;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>⚙️ เมนูผู้ดูแลระบบ</h2>
+
+  <div class="menu-container">
+    <button class="menu-button football" onclick="location.href='admin-create-football.html'">⚽ สร้างกิจกรรมทายผลฟุตบอล</button>
+    <button class="menu-button muaythai" onclick="location.href='create-muay.html'">🥊 สร้างกิจกรรมทายผลมวย</button>
+    <button class="menu-button lotto" onclick="location.href='create-lotto.html'">🎯 สร้างกิจกรรมทายผลหวย</button>
+    <button class="menu-button logout" onclick="logout()">🚪 ออกจากระบบ</button>
+  </div>
+
+  <script>
+    // ตรวจสอบว่าผู้ใช้เข้าสู่ระบบหรือไม่
+    const user = sessionStorage.getItem("loggedInUser");
+    if (!user) {
+      alert("⛔ กรุณาเข้าสู่ระบบก่อน");
+      window.location.href = "admin-login.html";
+    }
+
+    function logout() {
+      sessionStorage.removeItem("loggedInUser");
+      alert("👋 ออกจากระบบแล้ว");
+      window.location.href = "admin-login.html";
+    }
+  </script>
+
+</body>
+</html>
